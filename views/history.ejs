@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include metadata %> 
+  <script type="text/javascript" src="/javascripts/moment.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <link  href="https://netdna.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+  <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+</head>
+
+<body>
+  <section id="container">
+  
+    <% include header %> 
+   
+    <% include sidebar %> 
+  
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row mt">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <!--  BASIC PROGRESS BARS -->
+            <div class="showback">
+              <h3 class="text-center" >Đề tài: <b>ĐIỀU KHIỂN VÀ GIÁM SÁT MÔ HÌNH CHIẾT RÓT QUA INTERNET</b></h3>
+              <p>&nbsp;</p>
+              <div class="row">
+                <div class="col-md-3 col-md-offset-1">
+
+                  <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-3  col-md-offset-1">
+
+                  <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input type='text' class="form-control" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-2 col-md-offset-2">
+                  <button id="btn-excel" type="button" class="btn btn-success" style="width: 100px;">Export Excel</button>
+                </div>
+              </div>
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr >
+                    <th class="text-center" scope="col">#</th>
+                    <th class="text-center" scope="col">Run</th>
+                    <th class="text-center" scope="col">Emer</th>
+                    <th class="text-center" scope="col">Value V1</th>
+                    <th class="text-center" scope="col">Value V2</th>
+                    <th class="text-center" scope="col">Value V11</th>
+                    <th class="text-center" scope="col">Value V22</th>
+                    <th class="text-center" scope="col">Total</th>
+                    <th class="text-center" scope="col">Time</th>
+                  </tr>
+                </thead>
+                <tbody id="render-here">
+                  <!-- Table will render here... -->
+                </tbody>
+              </table>
+
+              <div class="row">
+                <div class="col-md-3 col-md-offset-9" style="padding-left: 80px !important;">
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination" id="page-nav">
+                      
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>           
+          </div>
+          <!-- /col-lg-6 -->
+        </div>
+        <!--/ row -->
+      </section>
+      <!-- /wrapper -->
+    </section>
+    <!-- /MAIN CONTENT -->
+    <!--main content end-->
+    <!--footer start-->
+    
+    <% include footer %>
+    <!--footer end-->
+  </section>
+  <script type="text/javascript" src="/javascripts/utils.js"></script>
+  <script type="text/javascript" src="/javascripts/history.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+  <script src="//eonasdan.github.io/bootstrap-datetimepicker/js/prettify-1.0.min.js"></script>
+  <script src="//eonasdan.github.io/bootstrap-datetimepicker/js/base.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+  <script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+        $('#datetimepicker2').datetimepicker();
+    });
+</script>
+</body>
+
+</html>

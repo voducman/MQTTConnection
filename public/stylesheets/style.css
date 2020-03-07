@@ -1,0 +1,27 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+.active{
+  background-color: #ff5733 !important;
+}
+
+.state-on{
+  color: green;
+}
+
+.state-off{
+  color: red;
+}
+
+.footer{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}

@@ -1,0 +1,36 @@
+<aside>
+    <div id="sidebar" class="nav-collapse ">
+      <!-- sidebar menu start-->
+      <ul class="sidebar-menu" id="nav-accordion">
+        <% if (typeof user.avatarLink == 'undefined'){ %>
+            <p class="centered"><img src="/images/default-avatar.png" class="img-circle" width="80"></p>
+        <% } else { %>
+            <p class="centered"><img src="<%= user.avatarLink %>"    class="img-circle" width="80"></p>
+        <% } %>
+        <% if (typeof user.username == 'undefined'){ %>
+            <h5 class="centered"><%= user.email %>  </h5>
+        <% } else { %>
+            <h5 class="centered"><%= user.username %></h5>
+        <% } %>
+      
+        <li class="mt">
+          <a href="/dashboard" class="utils dashboard">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+          <a href="/history"   class="utils history">
+            <i class="fa fa-history"></i>
+            <span>History</span>
+            </a>
+        </li>
+        <li>
+          <a href="/aboutus"   class="utils aboutus">
+            <i class="fa fa-user-circle-o"></i>
+            <span>About US</span>
+            </a>
+        </li>
+       
+    </div>
+  </aside>
