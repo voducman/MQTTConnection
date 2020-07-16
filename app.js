@@ -32,9 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   secret           : process.env.SECRET || 'xxxxxxxx', 
-  cookie           : { maxAge: 60*60*1000 },     // maxAge = 15 minutes = 900000
-  resave           : true,                   // forces the session to be saved back to the store
-  saveUninitialized: false                   // dont save unmodified
+  cookie           : { maxAge: 24*60*60*1000 }, // maxAge = 24h
+  resave           : true,                      // forces the session to be saved back to the store
+  saveUninitialized: false                      // dont save unmodified
 }));
 app.use(passport.initialize());
 app.use(passport.session());

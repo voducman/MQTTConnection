@@ -3,6 +3,7 @@ var passport = require('passport')
 var mqtt     = require('mqtt');
 var router   = express.Router();
 var Data     = require('../model/Data');
+const { renderSync } = require('node-sass');
 
 /* GET home page. */
 router.get('/', checkLogin, function(req, res) {
@@ -76,6 +77,7 @@ router.get('/update', checkLogin, function(req, res){
     if (err || (typeof docs[0] == 'undefined')){
       console.log("Query /Update get an error: ", err);
       res.send('false');
+      //res.send({'total': Math.random()*100, 'sendTime': Date.now()});
     }else{
       let lastestDoc = docs[0].sendTime;
       let now = Date.now();
@@ -87,6 +89,7 @@ router.get('/update', checkLogin, function(req, res){
       }else{
         // Không có dữ liệu cách đây tối thiểu 5s
         res.send('false');
+        //res.send({'total': Math.random()*100, 'sendTime': Date.now()});
       }
     }
   })
@@ -94,7 +97,7 @@ router.get('/update', checkLogin, function(req, res){
 })
 
 router.post('/send2PLC', checkLogin, function(req, res){
-
+  console.log("Send to PLC")
   var client = mqtt.connect("mqtt://m24.cloudmqtt.com", {
     keepalive: 120,
     username: 'bdzsrzdm',
@@ -109,42 +112,37 @@ router.post('/send2PLC', checkLogin, function(req, res){
 
   function callback(result){
     console.log(result);
-    client.end();
   }
 
 
   client.on('connect', function () {
+    console.log('On Connected');
     // To-do list here
     if (typeof req.body['run'] != 'undefined') {
-      // console.log('run:', req.body['run']);
       client.publish('lequoccuong/write', `runn:${req.body['run']}`, options, callback);
+    } 
 
-    } else if (typeof req.body['web_emer'] != 'undefined') {
-      // console.log('web_emer:', req.body['web_emer']);
+    if (typeof req.body['web_emer'] != 'undefined') {
       client.publish('lequoccuong/write', `emer:${req.body['web_emer']}`, options, callback);
-
-    } else if (typeof req.body['web_reset'] != 'undefined') {
-      //console.log('web_reset:', req.body['web_reset']);
+    }
+    if (typeof req.body['web_reset'] != 'undefined') {
       client.publish('lequoccuong/write', `rese:${req.body['web_reset']}`, options, callback);
+    } 
 
-    } else if (typeof req.body['val_v1'] != 'undefined'){
-      //console.log('web_reset:', req.body['web_reset']);
+    if (typeof req.body['val_v1'] != 'undefined'){
       client.publish('lequoccuong/write', `val1:${req.body['val_v1']}`, options, callback);
-
-    }else if (typeof req.body['val_v2'] != 'undefined'){
-      //console.log('val_v2:', req.body['val_v2']);
+    }
+    if (typeof req.body['val_v2'] != 'undefined'){
       client.publish('lequoccuong/write', `val2:${req.body['val_v2']}`, options, callback);
-
-    }else if (typeof req.body['val_v11'] != 'undefined'){
-      //console.log('val_v11:', req.body['val_v11']);
+    }
+    if (typeof req.body['val_v11'] != 'undefined'){
       client.publish('lequoccuong/write', `va11:${req.body['val_v11']}`, options, callback);
-
-    }else if (typeof req.body['val_v22'] != 'undefined'){
-      //console.log('val_v22:', req.body['val_v22']);
+    }
+    if (typeof req.body['val_v22'] != 'undefined'){
       client.publish('lequoccuong/write', `va22:${req.body['val_v22']}`, options, callback);
     }
 
-    //client.end();
+    client.end();
     res.send(true);
   })
   
@@ -177,14 +175,20 @@ router.get('/logout', checkLogin, function(req, res){
   res.redirect('/');
 })
 
+
+router.get('/chartview', checkLogin, function(req, res){
+  const userSession = req.user;
+  res.render('chartview', {user: userSession});
+})
+
+
 function checkLogin(req, res, next){
     if (req.isAuthenticated()) {
         return next();
     }
 
-    res.redirect("/login");
+    res.redirect('/login');
 }
-
 
 
 module.exports = router;

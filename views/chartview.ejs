@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include metadata %>
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="container">
+  
+    <% include header %> 
+   
+    <% include sidebar %> 
+  
+    <div id="main-content">
+      <div class="wrapper">
+        <div class="row">
+          <div class="col-md-12"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center" >GIÁM SÁT LỊCH SỬ HỆ THỐNG CHIẾT RÓT</b></h3>
+        </div>
+        <div class="col-md-12 total-area">
+            <h5 class="text-center text-danger">Biểu Đồ Tổng Số Chai</b></h5>
+        </div>
+        <div class="col-md-12 volum-area hidden">
+            <h5 class="text-center text-danger">Biểu Đồ Tổng Thể Tích</b></h5>
+        </div>
+        <div class="col-sm-12 text-center">
+            <input id="TotalorVolume"
+                type="checkbox" 
+                data-size="sm"
+                checked 
+                data-toggle="toggle" 
+                data-onstyle="info" 
+                data-offstyle="danger" 
+                data-on="Số chai"
+                data-off="Thể tích">
+        </div> 
+      </div>
+
+      <div class="wrapper" id="chartArea">
+        <div class="row bar-chart">
+            <div class="col-md-12">
+                <canvas id="totalBarChart" class="chartview"></canvas>
+            </div>
+        </div>
+        <div class="row hidden line-chart">
+            <div class="col-md-12">
+                <canvas id="totalLineChart" class="chartview"></canvas>
+            </div>
+        </div>
+        <div class="row bar-chart" style="padding-top: 20px;">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-round btn-sm btn-info">Change to Line Chart</button>
+            </div>
+        </div>
+        <div class="row hidden line-chart" style="padding-top: 20px;">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-round btn-sm btn-info">Change to Bar Chart</button>
+            </div>
+        </div>
+      <!-- /wrapper -->
+    </div>
+    
+    <% include footer %>
+    <!--footer end-->
+  </div>
+  <% include scripts %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+  <script type="text/javascript" src="/javascripts/chartview.js"></script>
+</body>
+
+</html>

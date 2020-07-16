@@ -88,19 +88,20 @@ $('#btn-emer').click(function(){
 })
 
 $('#btn-write').click(function(){  
+    let values;
     let ele = Array.from(document.querySelectorAll('input[name="optradio"]')).find(function(element){
         if (element.checked) return element;
     })
-    console.log(ele.dataset.tag);
-    console.log($('#quantity').val())
+    
+
     switch (ele.dataset.tag){
-        case 'val_v1': data = {val_v1: $('#quantity').val()}; break;
-        case 'val_v2': data = {val_v2: $('#quantity').val()}; break;
-        case 'val_v11': data = {val_v11: $('#quantity').val()}; break;
-        case 'val_v22': data = {val_v22: $('#quantity').val()}; break;
+        case 'volume-100': values = setData(110, 70, 92, 70); break;
+        case 'volume-200': values = setData(200, 125, 200, 120); break;
+        case 'volume-300': values = setData(255, 163, 260, 150); break;
     }
 
-    $.post('/send2PLC', data)
+    console.log(ele.dataset.tag, values);
+    $.post('/send2PLC', values)
     .done(function(result){
         console.log("write success: ", result);
     })
@@ -190,4 +191,13 @@ function fortmatTime(time){
     let min   = date.getMinutes();
     let second = date.getSeconds();
     return `${hour}:${min}:${second} - ${date_}/${month}/${year}`;
+}
+
+function setData(v1, v2, v11, v22){
+    return {
+        'val_v1': v1,
+        'val_v2': v2,
+        'val_v11': v11,
+        'val_v22': v22
+    }
 }

@@ -141,22 +141,19 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-6 text-center">
-                    <input type="number" id="quantity" name="quantity" min="0" max="1000" placeholder="&nbsp;mml" style="width: 100px; height: 30px; margin-top: 15px;" value="150">
-                    <button id="btn-write" type="button" class="btn btn-warning" style="width: 100px; height: 40px; margin-top: 20px;">Write</button>
+                    <div class="radio">
+                      <label><input type="radio" name="optradio" data-tag="volume-100" checked>100 mml</label>
+                    </div>
+                    <div class="radio">
+                      <label><input type="radio" name="optradio" data-tag="volume-200">200 mml</label>
+                    </div>
+                    <div class="radio">
+                      <label><input type="radio" name="optradio" data-tag="volume-300">300 mml</label>
+                    </div>
+                  
                   </div>
-                  <div class="col-sm-6" style="padding-left: 30px;">
-                    <div class="radio">
-                      <label><input type="radio" name="optradio" data-tag="val_v1" checked>Value V1</label>
-                    </div>
-                    <div class="radio">
-                      <label><input type="radio" name="optradio" data-tag="val_v2">Value V2</label>
-                    </div>
-                    <div class="radio">
-                      <label><input type="radio" name="optradio" data-tag="val_v11">Value V11</label>
-                    </div>
-                    <div class="radio">
-                      <label><input type="radio" name="optradio" data-tag="val_v22">Value V22</label>
-                    </div>
+                  <div class="col-sm-6 text-center">
+                    <button id="btn-write" type="button" class="btn btn-warning" style="width: 100px; height: 40px; margin-top: 20px;">Write</button>
                   </div>
                 </div>
               </div>

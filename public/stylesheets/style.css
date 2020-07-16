@@ -25,3 +25,9 @@ a {
   right: 0;
   bottom: 0;
 }
+
+.chartview{
+  max-width: 1000px;
+  max-height: 400px;
+  margin: auto;
+}

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include metadata %>
+</head>
+
+<body>
+  <div id="container">
+  
+    <% include header %> 
+   
+    <% include sidebar %> 
+  
+    <div id="main-content">
+      <div class="wrapper">
+        <div class="row">
+          <div class="col-md-12"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="text-center text-danger">Hệ thống giám sát và điều khiển Máy bơm nước vào chai</h2>
+        </div>
+      </div>
+
+      <div class="wrapper">
+        <div class="row">
+          <div class="col-md-8 ">
+            <div class="panel panel-default">
+              <!-- Default panel contents -->
+              <div class="panel-heading text-center" style="background-color: #2a9d8f;">Bảng dữ liệu đọc từ PLC</div>
+              <div class="panel-body" style="background-color: #F4F1E0;">
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr >
+                      <th class="text-center" scope="col">STT</th>
+                      <th class="text-center" scope="col">Tag Name</th>
+                      <th class="text-center" scope="col">Value</th>
+                      <th class="text-center" scope="col">Description</th>
+                      <th class="text-center" scope="col">Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr >
+                      <th class="text-center" scope="row">1</th>
+                      <td class="text-center">Run</td>
+                      <td class="text-center" id="tag-run">false</td>
+                      <td class="text-center">Trạng thái chạy/dừng của hệ thống</td>
+                      <td class="text-center" id="tag-run-time">0</td>
+                    </tr>
+                    <tr>
+                      <th class="text-center" scope="row">2</th>
+                      <td class="text-center">Web Emer</td>
+                      <td class="text-center" id="tag-web_emer">false</td>
+                      <td class="text-center" >Trạng thái dừng khẩn cấp  của hệ thống</td>
+                      <td class="text-center" id="tag-web_emer-time">0</td>
+                    </tr>
+                    <tr>
+                      <th class="text-center" scope="row">3</th>
+                      <td class="text-center">Value V1</td>
+                      <td class="text-center" id="tag-val_v1">0</td>
+                      <td class="text-center">Giá trị thể tích đặt cho Valve 1</td>
+                      <td class="text-center" id="tag-val_v1-time">0</td>
+                    </tr>
+                    <tr>
+                      <th class="text-center" scope="row">4</th>
+                      <td class="text-center">Value V2</td>
+                      <td class="text-center" id="tag-val_v2">0</td>
+                      <td class="text-center">Giá trị thể tích đặt cho Valve 2</td>
+                      <td class="text-center" id="tag-val_v2-time">0</td>
+                    </tr>
+                    <tr>
+                      <th class="text-center" scope="row">5</th>
+                      <td class="text-center">Value V11</td>
+                      <td class="text-center" id="tag-val_v11">0</td>
+                      <td class="text-center">Giá trị thể tích đặt cho 2 Valve (theo V1)</td>
+                      <td class="text-center" id="tag-val_v11-time">0</td>
+                    </tr>
+                    <tr>
+                      <th class="text-center" scope="row">6</th>
+                      <td class="text-center">Value V22</td>
+                      <td class="text-center" id="tag-val_v22">0</td>
+                      <td class="text-center">Giá trị thể tích đặt cho 2 Valve (theo V2)</td>
+                      <td class="text-center" id="tag-val_v22-time">0</td>
+                    </tr>
+                    <tr>
+                      <th class="text-center" scope="row">7</th>
+                      <td class="text-center">Total</td>
+                      <td class="text-center" id="tag-total">0</td>
+                      <td class="text-center">Tổng số chai đã bơm được</td>
+                      <td class="text-center" id="tag-total-time">0</td>
+                    </tr>
+                   
+                 
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <!-- Default panel contents -->
+              <div class="panel-heading text-center" style="background-color: #e76f51;">Bảng điều khiển</div>
+              <div class="panel-body" style="background-color: #F4F1E0;">
+                <div class="row">
+                  <div class="col-md-4 text-center" style="font-size: medium;">
+                    <span>Run	&nbsp;&nbsp;</span><i id="state-run" class="fa fa-circle state-off"></i>
+                  </div>
+                  <div class="col-md-4 text-center" style="font-size: medium;">
+                    <span>Emer	&nbsp;&nbsp;</span><i id="state-emer" class="fa fa-circle state-off"></i>
+                  </div>
+                  <div class="col-md-4 text-center" style="font-size: medium;">
+                    <span>Reset	&nbsp;&nbsp;</span><i id="state-reset" class="fa fa-circle state-off"></i>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div style="height: 2em;"></div>
+                </div>
+                <div class="row text-center">
+                  <div class="col-sm-6">
+                    <button id="btn-start" type="button" class="btn btn-success" style="width: 100px;">Start</button>
+                  </div>
+                  <div class="col-sm-6">
+                    <button id="btn-stop" type="button" class="btn btn-danger" style="width: 100px;">Stop</button>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div style="height: 2em;"></div>
+                </div>
+                <div class="row text-center">
+                  <div class="col-sm-6">
+                    <button id="btn-reset" type="button" class="btn btn-info" style="width: 100px;">Reset</button>
+                  </div>
+                  <div class="col-sm-6">
+                    <button id="btn-emer" type="button" class="btn btn-warning" style="width: 100px;">Emergency</button>
+                  </div>
+                </div>
+                <div class="row text-center">
+                  <div style="height: 2em;"></div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 text-center">
+                    <input type="number" id="quantity" name="quantity" min="0" max="1000" placeholder="&nbsp;mml" style="width: 100px; height: 30px; margin-top: 15px;" value="150">
+                    <button id="btn-write" type="button" class="btn btn-warning" style="width: 100px; height: 40px; margin-top: 20px;">Write</button>
+                  </div>
+                  <div class="col-sm-6" style="padding-left: 30px;">
+                    <div class="radio">
+                      <label><input type="radio" name="optradio" data-tag="val_v1" checked>Value V1</label>
+                    </div>
+                    <div class="radio">
+                      <label><input type="radio" name="optradio" data-tag="val_v2">Value V2</label>
+                    </div>
+                    <div class="radio">
+                      <label><input type="radio" name="optradio" data-tag="val_v11">Value V11</label>
+                    </div>
+                    <div class="radio">
+                      <label><input type="radio" name="optradio" data-tag="val_v22">Value V22</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12"></div>
+      </div>
+      <!-- /wrapper -->
+    </div>
+    
+    <% include footer %>
+    <!--footer end-->
+  </div>
+  <% include scripts %>
+  <script type="text/javascript" src="/javascripts/dashboard.js"></script>
+</body>
+
+</html>
