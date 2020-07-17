@@ -32,7 +32,7 @@ using namespace std;
 /*          DEFINE CÁC HẰNG SỐ TRONG CHƯƠNG TRÌNH             */
 
 // Thông tin về wifi
-#define ssid     "Not Connected"
+#define ssid     "The Coffe House"
 #define password "hoiphata"
 
 // Thông tin về MQTT Broker
@@ -330,7 +330,6 @@ void writeTag(int tagName, String value){
   int code;
   boolean boolVal = false;
   int intVal = 0;
-  byte* data;
   
   switch(tagName){
    case RUN: 
@@ -353,29 +352,25 @@ void writeTag(int tagName, String value){
     intVal = value.toInt();
     wrapint(intVal);
     code = Client.WriteArea(S7AreaMK, 0/*ignored*/, 22, 2, &intVal);
-
     break;
+    
    case VALUE_V22: 
     intVal = value.toInt();
     wrapint(intVal);
-    data = (byte*)&intVal;
     code = Client.WriteArea(S7AreaMK, 0/*ignored*/, 24, 2, &intVal);
-  
     break;
+    
    case VALUE_V1: 
      intVal = value.toInt();
      wrapint(intVal);
-     data = (byte*)&intVal;
      code = Client.WriteArea(S7AreaMK, 0/*ignored*/, 26, 2, &intVal);
-
      break;
+     
    case VALUE_V2: 
     intVal = value.toInt();
     wrapint(intVal);
-    data = (byte*)&intVal;
     code = Client.WriteArea(S7AreaMK, 0/*ignored*/, 28, 2, &intVal);
     break;
-
    }
 
    Serial.print("Code of Write: 0x"); Serial.println(code, HEX);
@@ -396,7 +391,7 @@ void writeTag(int tagName, String value){
 
 void loop() {
   
-  char msg[300]; msg[299] = '\0';
+  char msg[256]; msg[255] = '\0';
   
   boolean run = false, web_emer = false, web_reset = false, result;
   int val_v11 = 0, val_v22 = 0, val_v1 = 0, val_v2 = 0;
@@ -448,37 +443,19 @@ void loop() {
   unsigned long now = millis();
   if (now - lastMsg > 1000) {
     
-    // Assign to disconnect NodeMCU vs PLC
-    status_ = true;
-    
     lastMsg = now;
 
     // Always read all tag in PLC
     readAllTag(run , web_emer, val_v11, val_v22, val_v1, val_v2, total);
-
-    // Disconnect with PLC
-    Client.Disconnect();
-
-    // Show tags value to Serial for Mornitoring
-
-    /*Serial.println("All tags in PLC: ");
-    Serial.print("Run: ");      Serial.println(run);
-    Serial.print("Web_Emer: "); Serial.println(web_emer);
-    Serial.print("Value_v11: ");Serial.println(val_v11);
-    Serial.print("Value_v22: ");Serial.println(val_v22);
-    Serial.print("Value_v1: "); Serial.println(val_v1);
-    Serial.print("Value_v2: "); Serial.println(val_v2);
-    Serial.print("Total: ");    Serial.println(total);*/
    
     // Publish data to MQTT Cloud
-
     val_v1  = (val_v1  > 0)? val_v1 :0;
     val_v2  = (val_v2  > 0)? val_v2 :0;
     val_v11 = (val_v11 > 0)? val_v11:0;
     val_v22 = (val_v22 > 0)? val_v22:0;
     
-    snprintf (msg, 300, "{\"run\":\"%d\", \"web_emer\":\"%d\", \"val_v11\":\"%d\", \"val_v22\":\"%d\", \"val_v1\":\"%d\", \"val_v2\":\"%d\", \"total\":\"%d\"}", (int)run, (int)web_emer,  (int)val_v11,  (int)val_v22,  (int)val_v1,  (int)val_v2,  (int)total);
-    
+    snprintf (msg, 256, "{\"run\":\"%d\", \"web_emer\":\"%d\", \"v11\":\"%d\", \"v22\":\"%d\", \"v1\":\"%d\", \"v2\":\"%d\", \"total\":\"%d\"}", (int)run, (int)web_emer,  (int)val_v11,  (int)val_v22,  (int)val_v1,  (int)val_v2,  (int)total);
+    Serial.println(msg);
     result = client.publish(mqtt_topic_read, msg);
 
     if (result){
@@ -488,8 +465,7 @@ void loop() {
     }else{
       // Error right here...can received without publish
       Serial.println("Publish not success!!");  
-      //Serial.println(client.connected());     
-      Client.Disconnect();
+      Serial.println(client.connected());
     }
     
   }

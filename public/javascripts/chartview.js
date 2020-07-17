@@ -106,10 +106,12 @@ setInterval(function(){
     $.get('/update')
     .done(function(result){
         if (typeof result == 'object'){
+
+            let sendTime = new Date(result.sendTime);
             let total = parseInt(result.total);
-            let timestamp = moment(result.sendTime).format('h:mm:ss A DD/MM/YYYY');
-            if (parseInt(result.sendTime) - lastDrawTotal > 5*60*1000){
-                lastDrawTotal = result.sendTime;
+            let timestamp = moment(sendTime).format('h:mm:ss A DD/MM/YYYY');
+            if (parseInt(sendTime.getTime()) - lastDrawTotal > 5*60*1000){
+                lastDrawTotal = sendTime.getTime();
                 updateChart(total, timestamp);
             }
         }

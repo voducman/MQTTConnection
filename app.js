@@ -88,10 +88,10 @@ client.on('message', function (topic, message) {
     let data = new Data({
       run:      objectMess.run,
       web_emer: objectMess.web_emer,
-      val_v11: objectMess.val_v11,
-      val_v22: objectMess.val_v22,
-      val_v1:  objectMess.val_v1,
-      val_v2:  objectMess.val_v2,
+      val_v11: objectMess.v11,
+      val_v22: objectMess.v22,
+      val_v1:  objectMess.v1,
+      val_v2:  objectMess.v2,
       total:   objectMess.total,
     });
 

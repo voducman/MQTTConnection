@@ -3,7 +3,8 @@ var passport = require('passport')
 var mqtt     = require('mqtt');
 var router   = express.Router();
 var Data     = require('../model/Data');
-const { renderSync } = require('node-sass');
+
+
 
 /* GET home page. */
 router.get('/', checkLogin, function(req, res) {
@@ -81,7 +82,6 @@ router.get('/update', checkLogin, function(req, res){
     }else{
       let lastestDoc = docs[0].sendTime;
       let now = Date.now();
-      console.log(now - lastestDoc);
 
       if ((now - lastestDoc) < 5000){
         // Có dữ liệu cách đây tối đa 5s
