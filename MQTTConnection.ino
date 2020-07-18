@@ -441,7 +441,7 @@ void loop() {
   
   // Sau mỗi 1s sẽ thực hiện publish dòng hello world lên MQTT broker
   unsigned long now = millis();
-  if (now - lastMsg > 1000) {
+  if (now - lastMsg > 500) {
     
     lastMsg = now;
 
@@ -455,7 +455,6 @@ void loop() {
     val_v22 = (val_v22 > 0)? val_v22:0;
     
     snprintf (msg, 256, "{\"run\":\"%d\", \"web_emer\":\"%d\", \"v11\":\"%d\", \"v22\":\"%d\", \"v1\":\"%d\", \"v2\":\"%d\", \"total\":\"%d\"}", (int)run, (int)web_emer,  (int)val_v11,  (int)val_v22,  (int)val_v1,  (int)val_v2,  (int)total);
-    Serial.println(msg);
     result = client.publish(mqtt_topic_read, msg);
 
     if (result){

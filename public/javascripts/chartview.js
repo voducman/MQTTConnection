@@ -34,7 +34,9 @@ let data = [];
 let backgroundColor = []; 
 let borderColor = [];
 let isVolumeChart = false;
+let isFirstOpenChart = true;
 let lastDrawTotal = 0;
+let lastTotal = 0;
 let options = {
     responsive: true,
     scales: {
@@ -110,9 +112,14 @@ setInterval(function(){
             let sendTime = new Date(result.sendTime);
             let total = parseInt(result.total);
             let timestamp = moment(sendTime).format('h:mm:ss A DD/MM/YYYY');
-            if (parseInt(sendTime.getTime()) - lastDrawTotal > 5*60*1000){
+            if (isFirstOpenChart){
+                lastTotal = total;
+                isFirstOpenChart = false;
+            }
+            else if (parseInt(sendTime.getTime()) - lastDrawTotal > 1*60*1000){
                 lastDrawTotal = sendTime.getTime();
-                updateChart(total, timestamp);
+                updateChart((total - lastTotal >= 0)? total - lastTotal : 0, timestamp);
+                lastTotal = total;
             }
         }
     })
