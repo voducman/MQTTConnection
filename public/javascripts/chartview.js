@@ -116,7 +116,7 @@ setInterval(function(){
                 lastTotal = total;
                 isFirstOpenChart = false;
             }
-            else if (parseInt(sendTime.getTime()) - lastDrawTotal > 1*60*1000){
+            else if (parseInt(sendTime.getTime()) - lastDrawTotal > 5*60*1000){
                 lastDrawTotal = sendTime.getTime();
                 updateChart((total - lastTotal >= 0)? total - lastTotal : 0, timestamp);
                 lastTotal = total;
